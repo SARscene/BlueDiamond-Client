@@ -28,7 +28,8 @@ BD.connection = {
             this.active(url);
             return this.fetch();
         }
-        else {
+        else
+        {
             BD.u.log("No available collection, requesting QR code"); //TODO: request QR code
             return false;
         }
@@ -49,6 +50,7 @@ BD.connection = {
         }).done(function(e) {
             BD.u.log("Connection SUCCESS for " + url);
             BD.incident.init(e);
+            BD.connection.signin(url);
             return url;
         })
         .fail(function(e) {
@@ -93,6 +95,23 @@ BD.connection = {
         })
         .fail(function() {
             BD.u.log("Fetch FAILED");
+            return false;
+        });
+    },
+
+    signin: function(url)
+    {
+        var entrypoint = "api/mobile/signin";
+        var params = "?phoneNumber="+localStorage.getItem("telephone");
+        $.post("//" + url + entrypoint + params, function(e){
+            console.log(e);
+            BD.u.log("Signin SUCCESS");
+            return url;
+        }).done(function() {
+            BD.u.log("Signin DONE");
+        })
+        .fail(function() {
+            BD.u.log("Signin FAILED");
             return false;
         });
     },
