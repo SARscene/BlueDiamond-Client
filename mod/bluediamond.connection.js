@@ -4,6 +4,7 @@
  * @author Thierry D. @t_dtm
  */
 var BD = BD || {};
+
 BD.connection = {
 
     /**
@@ -25,7 +26,7 @@ BD.connection = {
         }
 
         if (validServer){
-            this.active(url);
+            sessionStorage.setItem("connection", url);
             return this.fetch();
         }
         else
@@ -40,20 +41,36 @@ BD.connection = {
      *
      * @param url
      */
-    handShake: function(serverUrl)
+    handShake: function(url)
     {
-        var entrypoint = "/api/mobile/handshake";
-        var url = "http://" +  BD.u.removeProtocol(serverUrl) + "/" + url + entrypoint;
-
-        $.get(url, function(e){
+        var entrypoint = "api/mobile/handshake";
+        $.get(url + entrypoint, function(e){
             //Not doing anything, handled through "done" action.
         }).done(function(e) {
+
+            $('#reader').html5_qrcode_stop();
+            //save url in session
+            sessionStorage.setItem("postURL", url);
+
             BD.u.log("Connection SUCCESS for " + url);
             BD.incident.init(e);
             BD.connection.signin(url);
             return url;
         })
         .fail(function(e) {
+
+            popUp(function(){
+                $("#myPopupHeader").text("Oops!");
+                $("#myPopupText1").text("We couldn't find your Command Post.");
+                $("#myPopupText2").text("Please contact your Command Post administrator.");
+                $("#myPopupPositiveButton").text("Okay");
+                $("#myPopupNegativeButton").css("display", "none");
+                $("#myPopupPositiveButton").unbind("click").bind("click", function(){
+                    navToQrPage();
+                    $("#myPopup").popup("close");
+                });
+            });
+
             BD.u.log("Connection FAILED for " + url);
             return false;
         });
@@ -75,7 +92,7 @@ BD.connection = {
     add: function(url)
     {
         var list  = this.list() || [];
-        list.push(BD.u.removeProtocol(url));
+        list.push(url);
         localStorage.setItem("servers",JSON.stringify(list));
     },
 
@@ -101,23 +118,42 @@ BD.connection = {
 
     signin: function(url)
     {
-        var entrypoint = "api/mobile/signin";
-        var params = "?phoneNumber="+localStorage.getItem("telephone");
-        $.post("//" + url + entrypoint + params, function(e){
+        var incident = [];
+        var incidentID = "00000000-0000-0000-0000-000000000000";
+        if(sessionStorage.getItem(incident)){
+            incident = JSON.parse(sessionStorage.getItem(incident));
+            if(incident.IncidentID){
+                incidentID = incident.IncidentID;
+            }
+        }
+
+        var entrypoint = "api/mobile/signin/"+incidentID;
+        //var params = "?phoneNumber="+localStorage.getItem("telephone");
+        var params = "";
+        $.get(url + entrypoint + params, function(e){
             console.log(e);
             BD.u.log("Signin SUCCESS");
-            return url;
-        }).done(function() {
+            //Go to Tracking page
+            navToTrackingPage();
+        }).done(function(memberid) {
+            localStorage.setItem("memberid", memberid);
             BD.u.log("Signin DONE");
         })
-        .fail(function() {
-            BD.u.log("Signin FAILED");
+        .fail(function(e) {
+            BD.u.log("Signin FAILED: ");
+            console.log(e);
+            popUp(function(){
+                $("#myPopupHeader").text("Oops!");
+                $("#myPopupText1").text("We couldn't sign you in.");
+                $("#myPopupText2").text("Please contact your Command Post administrator.");
+                $("#myPopupPositiveButton").text("Okay");
+                $("#myPopupNegativeButton").css("display", "none");
+                $("#myPopupPositiveButton").unbind("click").bind("click", function(){
+                    navToQrPage();
+                    $("#myPopup").popup("close");
+                });
+            });
             return false;
         });
-    },
-
-    active: function()
-    {
-        return sessionStorage.getItem("connection");
     }
 };

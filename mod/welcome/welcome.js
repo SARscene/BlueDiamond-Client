@@ -1,3 +1,8 @@
+$( document ).ready(function() {
+    $.support.cors=true;
+});
+
+
 
 /* Run welcome page (signup). */
 function welcome(){

@@ -43,7 +43,7 @@
             <div id="welcomeContent" class="content" data-role="content">
                 <p id="error"></p>
                 <input id="telephone" placeholder="Telephone" value="" type="tel" autocapitalize="none" autocorrect="off" autocomplete="off" spellcheck="false" tabindex="1">
-                <a id="signupButton" class="button" data-role="button" tabindex="2" onclick="">Start</a>
+                <a id="signupButton" class="button" data-role="button" tabindex="2" onclick="">Submit</a>
             </div>
         </div>
 
@@ -51,22 +51,23 @@
             <!--<a class="button" data-role="button" tabindex="1" href="#qrPage">QR</a>-->
             <!--<a class="button" data-role="button" tabindex="1" href="#connectPage">Connexion</a>-->
             <!--<a class="button" data-role="button" tabindex="1" href="#trackingPage">Tracking</a>-->
-            <a class="button" data-role="button" tabindex="1" href="#settingsPage">Settings</a>
+            <!--<a class="button" data-role="button" tabindex="1" href="#settingsPage">Settings</a>-->
+
 
             <div id="qrContent" class="content" data-role="content">
-                <a id="qrToWelcomeButton" class="button" data-role="button" tabindex="1" onclick="navToWelcomePage()">Back</a>
+                
+                <p id="scanHeader">Scan QR Code</p>
                 <div id="reader" style="width:300px;height:250px"></div>
-                <span id="read"></span>
-                <span id="read_error"></span>
-                <span id="vid_error"></span>
+                <a id="qrToWelcomeButton" class="button" data-role="button" tabindex="1" onclick="navToWelcomePage()">Back</a>
             </div>
         </div>
 
         <div id="trackingPage" class="page" data-role="page">
             <div id="trackingContent" class="content" data-role="content">
+                
+                <a id="trackButton" class="button" data-role="button" tabindex="2" onclick="trackButtonClick()">Start</a>
+                <!--<a id="submitButton" class="button" data-role="button" tabindex="3" onclick="submitTracks()">Submit Tracks</a>-->
                 <a id="trackingToQRButton" class="button" data-role="button" tabindex="1" onclick="navToQrPage()">Back</a>
-                <a id="trackButton" class="button" data-role="button" tabindex="2" onclick="trackButtonClick()">Toggle Tracking</a>
-                <a id="submitButton" class="button" data-role="button" tabindex="3" onclick="submitTracks()">Submit Tracks</a>
             </div>
         </div>
 
@@ -84,17 +85,6 @@
                 <input name="server" type="url" id="in-storage" placeholder="http://999.999.999"/>
                 <button id="btn-storage" onclick="BD.u.validate($('#in-storage'), BD.connection.add)">Add</button>
             </div>
-        </div>
-
-        <div id="mapsPage" class="page" data-role="page">
-
-            Maps
-
-            <ol>
-                <li class="current"></li>
-                <li></li>
-            </ol>
-
         </div>
 
     </body>

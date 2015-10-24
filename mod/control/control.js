@@ -34,9 +34,12 @@ function navToQrPage(){
 function trackButtonClick(){
 	if(sessionStorage.getItem("tracking")){
 		trackStop();
+		submitTracks();
 	}
 	else{
 		trackStart();
+		$("#trackButton").css("background-color", "red");
+		$("#trackButton").text("Stop");
 	}
 }
 

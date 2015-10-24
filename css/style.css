@@ -44,3 +44,13 @@
 	color: #D4060B;
 	margin:0px;
 }
+
+#scanHeader{
+	text-align: center;
+}
+
+#trackButton{
+	background-color: green;
+	color:white;
+	text-shadow: none;
+}
