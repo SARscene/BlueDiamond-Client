@@ -1,3 +1,4 @@
+/* Navigate from qrPage to trackingPage. */
 function navToTrackingPage(){
 	$.mobile.changePage('#trackingPage', {
         allowSamePageTransition: true,
@@ -5,6 +6,7 @@ function navToTrackingPage(){
     });
 }
 
+/* Navigate to trackingPage from qrPage. */
 function navToQrPage(){
 	$.mobile.changePage('#qrPage', {
         allowSamePageTransition: true,
@@ -12,6 +14,7 @@ function navToQrPage(){
     });
 }
 
+/* Controller for TrackButton. */
 function trackButtonClick(){
 	if(sessionStorage.getItem("tracking")){
 		trackStop();

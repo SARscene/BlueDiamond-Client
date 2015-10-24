@@ -1,5 +1,6 @@
 /* Submits any available tracking info to the User's profile on our server. */
 function submitTracks(){
+	//Build elements
 	var postURL = sessionStorage.getItem("postURL");
 	var trackID = "00000000-0000-0000-0000-000000000000";
 	var name = "";
@@ -13,8 +14,12 @@ function submitTracks(){
 	};
 	var incidentID = "00000000-0000-0000-0000-000000000000";
 	var points = JSON.parse(sessionStorage.getItem("savedTracks"));
+	//Build object
 	var input = {"TrackID":trackID, "Name":name, "Core":core, "IncidentID":incidentID, "Points":points};
-	console.log(input);
+	
+	//console.log(input);
+
+	//Call to server using URL obtained from QR code.
 	$.ajax({
 		type: "post", 
 		url: postURL,
@@ -30,9 +35,4 @@ function submitTracks(){
 			return false;
 		}
 	}); 
-}
-
-/* Retrieves the User's profile from our server if available. */
-function getUser(){
-
 }

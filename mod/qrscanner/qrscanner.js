@@ -1,8 +1,10 @@
 
 $(document).ready(function(){
 
+	//Clear session on new load
 	sessionStorage.clear();
 
+	//Size QR-video to screen
 	$("#reader").css('height', ($(window).height()));
 	$("#reader").css('width', ($(window).width()));
 	$("#reader").css('top', ($(window).height()) );
@@ -10,18 +12,19 @@ $(document).ready(function(){
 	$("#reader").children("video").css('height', ($(window).height()));
 	$("#reader").children("video").css('width', ($(window).width()));
 
+	//Initiate QR-code-reader
 	$('#reader').html5_qrcode(function(data){
 			//Go to Tracking page
 			navToTrackingPage();
-			//get URL
+			//get URL in background
 			var postURL = data;
 			//save url in session
 			sessionStorage.setItem("postURL", postURL);
 		},
 		function(error){
-			$('#read_error').html(error);
+			console.log(error);
 		}, function(videoError){
-			$('#vid_error').html(videoError);
+			console.log(videoError);
 		}
 	);
 });
