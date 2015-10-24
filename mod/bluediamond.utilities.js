@@ -21,5 +21,5 @@ BD.u.validate = function(field, callback)
 
 BD.u.log = function(msg)
 {
-    if (window.console) console.log("["+(new Date().getTime())+"] " + msg);
+    if (window.console) console.log("["+(new Date().toISOString())+"] " + msg);
 };
