@@ -25,11 +25,10 @@ BD.connection = {
         }
 
         if (validServer){
-            sessionStorage.setItem("connection", url);
+            this.active(url);
             return this.fetch();
         }
-        else
-        {
+        else {
             BD.u.log("No available collection, requesting QR code"); //TODO: request QR code
             return false;
         }
@@ -94,5 +93,10 @@ BD.connection = {
             BD.u.log("Fetch FAILED");
             return false;
         });
+    },
+
+    active: function()
+    {
+        return sessionStorage.getItem("connection");
     }
 };

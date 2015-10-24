@@ -33,5 +33,32 @@ BD.incident = {
             return this.instance[key];
         else
             return null;
+    },
+
+    /**
+     * Gets map from the command server for active incident.
+     */
+    getMap: function()
+    {
+        $.get("//" + this.instance + "/Downloads/" + this.get("IncidentID") + ".pdf", function(e){
+            //Not doing anything, handled through "done" action.
+        }).done(function(e)
+        {
+            console.log(e);
+            if (BD.u.checkPDF(e))
+            {
+                BD.u.log("Got file - it's a PDF");
+                BD.u.savePdf(e);
+            }
+            else BD.u.log("Got file - it's a failure");
+
+            return url;
+        })
+        .fail(function(e)
+        {
+            console.log(e);
+            BD.u.log("Didn't get anything");
+            return false;
+        });
     }
 };
