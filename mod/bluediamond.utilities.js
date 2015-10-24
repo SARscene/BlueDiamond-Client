@@ -61,5 +61,10 @@ BD.u = {
                 }, onError);
             }, onError);
         }, onError);
+    },
+
+    removeProtocol: function(url)
+    {
+        return url.replace(/.*?:\/\//g, "");
     }
 };

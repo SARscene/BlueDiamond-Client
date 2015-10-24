@@ -39,10 +39,12 @@ BD.connection = {
      *
      * @param url
      */
-    handShake: function(url)
+    handShake: function(serverUrl)
     {
         var entrypoint = "/api/mobile/handshake";
-        $.get("//" +url + entrypoint, function(e){
+        var url = BD.u.removeProtocol(serverUrl) + "//" + url + entrypoint;
+
+        $.get(url, function(e){
             //Not doing anything, handled through "done" action.
         }).done(function(e) {
             BD.u.log("Connection SUCCESS for " + url);
@@ -71,7 +73,7 @@ BD.connection = {
     add: function(url)
     {
         var list  = this.list() || [];
-        list.push(url);
+        list.push(BD.u.removeProtocol(url));
         localStorage.setItem("servers",JSON.stringify(list));
     },
 
