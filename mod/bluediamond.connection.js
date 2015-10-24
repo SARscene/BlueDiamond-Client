@@ -42,13 +42,15 @@ BD.connection.lookup = function()
  */
 BD.connection.handShake = function(url)
 {
-    $.get("//"+url, function(e){
+    var entrypoint = "/api/mobile/handshake";
+    $.get("//" +url + entrypoint, function(e){
+        //Not doing anything, handled through "done" action.
+    }).done(function(e) {
         BD.u.log("Connection SUCCESS for " + url);
+        BD.incident.init(e);
         return url;
-    }).done(function() {
-        BD.u.log("Connection DONE for " + url);
     })
-    .fail(function() {
+    .fail(function(e) {
         BD.u.log("Connection FAILED for " + url);
         return false;
     });
