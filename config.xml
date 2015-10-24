@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns   = "http://www.w3.org/ns/widgets"
+        xmlns:gap   = "http://phonegap.com/ns/1.0"
+        id          = "com.sar.hackathon"
+        versionCode = "0010" 
+        version     = "0.0.1" >
+
+    <name>Antris</name>
+
+    <description>
+        Hackathon
+    </description>
+
+    <author href="https://www.antris.com" email="cdykeman@antris.com">
+        Cameron Dykeman
+    </author>
+
+    <!-- PHONEGAP VERSION -->
+    <preference name='phonegap-version' value='cli-5.1.1' />
+    <gap:plugin name='org.crosswalk.engine' version='1.3.0' source='pgb' />
+    <gap:plugin name="cordova-plugin-whitelist" source="npm" version="1.0.0"/>
+    <allow-navigation href="*" />
+    <allow-intent href="*" />
+    <access origin="*" />
+    <!-- ORIENTATION -->
+    <preference name="orientation" value="portrait" />
+    <!-- EXTERNAL BROWSER -->
+    <!--<gap:plugin name="org.li8.inappbrowser" version="0.1" />-->
+    <gap:plugin name="cordova-plugin-inappbrowser" source="npm" version="1.0.0"/>
+
+    <!-- DEVICE PERMISSIONS -->
+    <access origin="*"/> <!-- allow all pages, use for development -->
+    <preference name="permissions" value="none"/>
+    <feature name="http://api.phonegap.com/1.0/geolocation"/>
+    <feature name="http://api.phonegap.com/1.0/network"/>
+    <feature name="http://api.phonegap.com/1.0/notification"/>
+    <feature name="http://api.phonegap.com/1.0/camera" />
+    <feature name="http://api.phonegap.com/1.0/file" />
+
+    <!-- PUSHWOOSH -->
+    <gap:plugin name="com.pushwoosh.plugins.pushwoosh" version="3.4.2" />
+
+    <!-- APPSEE -->
+    <gap:plugin name="com.appsee.plugin" version="2.1.3" />
+
+    <!-- STATUS BAR -->
+    <gap:plugin name="com.phonegap.plugin.statusbar" version="1.1.0" />
+    <gap:config-file platform="ios" parent="UIStatusBarHidden"> 
+        <true/> 
+    </gap:config-file> 
+    <gap:config-file platform="ios" parent="UIViewControllerBasedStatusBarAppearance"> 
+        <false/> 
+    </gap:config-file>
+
+    <!-- ALLOW GEOLOCATION -->
+    <!--<gap:plugin name="org.apache.cordova.geolocation" version="0.3.10" />-->
+    <gap:plugin name="cordova-plugin-geolocation" source="npm" version="1.0.0"/>
+
+    <!-- KEYBOARD ADJUST -->
+    <preference name="fullscreen" value="false" />
+    <preference name="android-windowSoftInputMode" value="adjustResize" />
+
+    
+</widget>

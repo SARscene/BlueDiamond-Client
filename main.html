@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hackathon</title>
+        <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, minimal-ui"> 
+        <meta name="apple-mobile-web-app-capable" content="yes"> 
+        <meta name="mobile-web-app-capable" content="yes">  
+        <meta charset="UTF-8">  
+        
+        <!-- JQuery Mobile -->
+        <script type="text/javascript" src="lib/jqm/jquery-1.11.2.min.js"></script>
+        <link rel="stylesheet" href="lib/jqm/jquery.mobile-1.4.2.min.css" />
+        <script type="text/javascript" src="lib/jqm/jquery.mobile-1.4.2.min.js"></script>
+
+        <!-- ESRI -->
+        <script type="text/javascript" src="lib/arcgis/arcgis.js"></script>
+        <link rel="stylesheet" href="https://js.arcgis.com/3.8/js/esri/css/esri.css" />
+
+        <!-- PHONEGAP -->
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="mod/phonegap/phonegap_init.js"></script>
+
+        <!-- QR CODE -->
+        <script type="text/javascript" src="lib/jsqrcode/src/grid.js"></script>
+        <script type="text/javascript" src="lib/jsqrcode/src/version.js"></script>
+        <script type="text/javascript" src="lib/jsqrcode/src/detector.js"></script>
+        <script type="text/javascript" src="lib/jsqrcode/src/formatinf.js"></script>
+        <script type="text/javascript" src="lib/jsqrcode/src/errorlevel.js"></script>
+        <script type="text/javascript" src="lib/jsqrcode/src/bitmat.js"></script>
+        <script type="text/javascript" src="lib/jsqrcode/src/datablock.js"></script>
+        <script type="text/javascript" src="lib/jsqrcode/src/bmparser.js"></script>
+        <script type="text/javascript" src="lib/jsqrcode/src/datamask.js"></script>
+        <script type="text/javascript" src="lib/jsqrcode/src/rsdecoder.js"></script>
+        <script type="text/javascript" src="lib/jsqrcode/src/gf256poly.js"></script>
+        <script type="text/javascript" src="lib/jsqrcode/src/gf256.js"></script>
+        <script type="text/javascript" src="lib/jsqrcode/src/decoder.js"></script>
+        <script type="text/javascript" src="lib/jsqrcode/src/qrcode.js"></script>
+        <script type="text/javascript" src="lib/jsqrcode/src/findpat.js"></script>
+        <script type="text/javascript" src="lib/jsqrcode/src/alignpat.js"></script>
+        <script type="text/javascript" src="lib/jsqrcode/src/databr.js"></script>
+
+        <!-- MODS -->
+        <script type="text/javascript" src="mod/track/track.js"></script>
+        
+    </head>
+    <body>
+
+        <div id="trackingPage" class="page" data-role="page">
+            <div id="trackingContent" class="content" data-role="content">
+                <a id="trackButton" class="button" data-role="button" tabindex="1" onclick="trackButtonClick()">Track</a>
+            </div>
+        </div>
+
+    </body>
+</html>
