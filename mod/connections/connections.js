@@ -31,7 +31,7 @@ function submitTracks(){
 			return true;
 		},
 		error: function(xhr, status, error) {
-			console.log("sendMessage() Failed: " + error + " - " + messageid);
+			console.log("sendMessage() Failed: " + error );
 			return false;
 		}
 	}); 

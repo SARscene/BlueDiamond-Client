@@ -1,6 +1,5 @@
 
-$(document).ready(function(){
-
+function qrScanner(){
 	//Clear session on new load
 	sessionStorage.clear();
 
@@ -13,19 +12,22 @@ $(document).ready(function(){
 	$("#reader").children("video").css('width', ($(window).width()));
 
 	//Initiate QR-code-reader
+	$('#reader').empty();
 	$('#reader').html5_qrcode(function(data){
-			//Go to Tracking page
-			navToTrackingPage();
-			//get URL in background
-			var postURL = data;
-			//save url in session
-			sessionStorage.setItem("postURL", postURL);
-		},
-		function(error){
-			console.log(error);
-		}, function(videoError){
-			console.log(videoError);
-		}
-	);
-});
+		$('#reader').html5_qrcode_stop();
+		//Go to Tracking page
+		navToTrackingPage();
+		//get URL in background
+		var postURL = data;
+		//save url in session
+		sessionStorage.setItem("postURL", postURL);
+		$('#reader').html5_qrcode_stop();
+		return true;
+	},
+	function(error){
+		console.log(error);
+	}, function(videoError){
+		console.log(videoError);
+	});
+}
 
