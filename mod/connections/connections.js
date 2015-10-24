@@ -12,7 +12,8 @@ function submitTracks(){
 		"IsDeleted":false,
 		"Version":0
 	};
-	var incidentID = "00000000-0000-0000-0000-000000000000";
+	//var incidentID = "00000000-0000-0000-0000-000000000000";
+	var incidentID = BD.incident.get() ? BD.incident.get() : "00000000-0000-0000-0000-000000000000";
 	var points = JSON.parse(sessionStorage.getItem("savedTracks"));
 	//Build object
 	var input = {"TrackID":trackID, "Name":name, "Core":core, "IncidentID":incidentID, "Points":points};
@@ -36,3 +37,4 @@ function submitTracks(){
 		}
 	}); 
 }
+

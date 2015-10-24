@@ -1,6 +1,10 @@
 /* Navigate to welcomePage. */
 function navToWelcomePage(){
-	$('#reader').html5_qrcode_stop();
+	localStorage.clear();
+	sessionStorage.clear();
+	try{
+		$('#reader').html5_qrcode_stop();
+	}catch(err){}
 	$.mobile.changePage('#welcomePage', {
         allowSamePageTransition: true,
         transition: 'slide'
@@ -9,7 +13,9 @@ function navToWelcomePage(){
 
 /* Navigate to trackingPage. */
 function navToTrackingPage(){
-	$('#reader').html5_qrcode_stop();
+	try{
+		$('#reader').html5_qrcode_stop();
+	}catch(err){}
 	$.mobile.changePage('#trackingPage', {
         allowSamePageTransition: true,
         transition: 'slide'
