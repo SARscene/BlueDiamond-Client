@@ -16,32 +16,45 @@
         <!--<script type="text/javascript" src="cordova.js"></script>-->
         <script type="text/javascript" src="mod/phonegap/phonegap_init.js"></script>
 
+        <!-- Telephone Widget -->
+        <script src="lib/intl-tel-input-master/build/js/intlTelInput.min.js"></script>
+        <link rel="stylesheet" href="lib/intl-tel-input-master/build/css/intlTelInput.css">
+
         <!-- QR CODE -->
         <script type="text/javascript" src="lib/jsqrcode/lib/html5-qrcode.min.js"></script>
         <script type="text/javascript" src="lib/jsqrcode/lib/jsqrcode-combined.min.js"></script>
 
         <!-- MODS -->
         <link rel="stylesheet" href="css/style.css" />
-        <script type="text/javascript" src="mod/track/track.js"></script>
+        <script type="text/javascript" src="mod/welcome/welcome.js"></script>
         <script type="text/javascript" src="mod/qrscanner/qrscanner.js"></script>
+        <script type="text/javascript" src="mod/track/track.js"></script>
         <script type="text/javascript" src="mod/control/control.js"></script>
         <script type="text/javascript" src="mod/connections/connections.js"></script>
-
+        <script type="text/javascript" src="mod/popup/popup.js"></script>
         <script type="text/javascript" src="mod/bluediamond.utilities.js"></script>
         <script type="text/javascript" src="mod/bluediamond.connection.js"></script>
         <script type="text/javascript" src="mod/bluediamond.incident.js"></script>
-
         
     </head>
     <body>
 
+        <div id="welcomePage" class="page" data-role="page">
+            <div id="welcomeContent" class="content" data-role="content">
+                <p id="error"></p>
+                <input id="telephone" placeholder="Telephone" value="" type="tel" autocapitalize="none" autocorrect="off" autocomplete="off" spellcheck="false" tabindex="1">
+                <a id="signupButton" class="button" data-role="button" tabindex="2" onclick="">Start</a>
+            </div>
+        </div>
+
         <div id="qrPage" class="page" data-role="page">
-            <a class="button" data-role="button" tabindex="1" href="#qrPage">QR</a>
-            <a class="button" data-role="button" tabindex="1" href="#connectPage">Connexion</a>
-            <a class="button" data-role="button" tabindex="1" href="#trackingPage">Tracking</a>
+            <!--<a class="button" data-role="button" tabindex="1" href="#qrPage">QR</a>-->
+            <!--<a class="button" data-role="button" tabindex="1" href="#connectPage">Connexion</a>-->
+            <!--<a class="button" data-role="button" tabindex="1" href="#trackingPage">Tracking</a>-->
             <a class="button" data-role="button" tabindex="1" href="#settingsPage">Settings</a>
 
             <div id="qrContent" class="content" data-role="content">
+                <a id="qrToWelcomeButton" class="button" data-role="button" tabindex="1" onclick="navToWelcomePage()">Back</a>
                 <div id="reader" style="width:300px;height:250px"></div>
                 <span id="read"></span>
                 <span id="read_error"></span>
@@ -51,9 +64,9 @@
 
         <div id="trackingPage" class="page" data-role="page">
             <div id="trackingContent" class="content" data-role="content">
-                <a id="trackButton" class="button" data-role="button" tabindex="1" onclick="navToQrPage()">Back</a>
+                <a id="trackingToQRButton" class="button" data-role="button" tabindex="1" onclick="navToQrPage()">Back</a>
                 <a id="trackButton" class="button" data-role="button" tabindex="2" onclick="trackButtonClick()">Toggle Tracking</a>
-                <a id="trackButton" class="button" data-role="button" tabindex="3" onclick="submitTracks()">Submit Tracks</a>
+                <a id="submitButton" class="button" data-role="button" tabindex="3" onclick="submitTracks()">Submit Tracks</a>
             </div>
         </div>
 

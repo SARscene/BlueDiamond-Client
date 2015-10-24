@@ -52,10 +52,27 @@ function welcome(){
 
 	$("#signupButton").unbind("click").bind("click", function(){
 		if(validateTelephone()){
-			localStorage.setItem("telephone", $("#telephone").val());
+			var formattedNumber = $("#telephone").val();
+			formattedNumber = formattedNumber.replace(/\W/g, '');
+			localStorage.setItem("telephone", formattedNumber);
 			navToQrPage();
 		}
 	});
+
+	//FUNCTINALITY
+	//Check for Telephone
+	//If telephone, check for connection
+	if(localStorage.getItem("telephone")){
+		//If connection, go to trackingPage
+		if(BD.connection.lookup()){
+			navToTrackingPage();
+		}
+		//If no connection, go to qrPage
+		else{
+			navToQrPage();
+		}
+	}
+		
 }
 
 function validateTelephone(){
