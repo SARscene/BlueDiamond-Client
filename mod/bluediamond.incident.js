@@ -35,30 +35,67 @@ BD.incident = {
             return null;
     },
 
-    /**
-     * Gets map from the command server for active incident.
-     */
-    getMap: function()
+    map:
     {
-        $.get("//" + this.instance + "/Downloads/" + this.get("IncidentID") + ".pdf", function(e){
-            //Not doing anything, handled through "done" action.
-        }).done(function(e)
+        fetch: function()
         {
-            console.log(e);
-            if (BD.u.checkPDF(e))
-            {
-                BD.u.log("Got file - it's a PDF");
-                BD.u.savePdf(e);
-            }
-            else BD.u.log("Got file - it's a failure");
+            var entrypoint = "/api/mobile/handshake";
+            //var url = "http://" +  /*BD.connection.active()*/ "10.0.0.207:50123" + "/Downloads/" + /*this.get("IncidentID")*/ "b1b622a1-9e19-4730-98fc-6e15ac92388e" + ".pdf";
+            var url ="http://localhost:63342/BlueDiamond-Client/map.pdf";
 
-            return url;
-        })
-        .fail(function(e)
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', url, true);
+            xhr.responseType = 'arraybuffer';
+            xhr.onload = function () {
+                if (this.status === 200) {
+                    var filename = "";
+                    var disposition = xhr.getResponseHeader('Content-Disposition');
+                    if (disposition && disposition.indexOf('attachment') !== -1) {
+                        var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                        var matches = filenameRegex.exec(disposition);
+                        if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+                    }
+
+                    /*if (BD.u.checkPDF(this.response))                {
+                     BD.u.log("Got file - it's a PDF");
+                     } else BD.u.log("Got file - it's a failure");*/
+
+                    var type = xhr.getResponseHeader('Content-Type');
+                    var mapUrl = BD.u.savePdf(this.response, type);
+                    BD.incident.map.addToList(mapUrl);
+                    console.log(mapUrl);
+                }
+            };
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.send();
+        },
+
+        addToList: function(url)
         {
-            console.log(e);
-            BD.u.log("Didn't get anything");
-            return false;
-        });
+            var list  = BD.incident.map.list() || [];
+            list.push({
+                url: url,
+                incident: BD.incident.get('incidentid')
+            });
+            localStorage.setItem("maps",JSON.stringify(list));
+        },
+
+        list: function()
+        {
+            var list = JSON.parse(localStorage.getItem("maps")) || [];
+
+            var fragment = document.createDocumentFragment();
+
+            list.forEach(function(map){
+                console.log(map);
+                var li = document.createElement('li');
+                li.innerHTML = '<a href="'+ map.url +'">'+ map.incident +'</span>';
+                fragment.appendChild(li);
+            });
+
+            document.querySelector('#files-list').appendChild(fragment);
+
+            return list;
+        }
     }
 };

@@ -43,28 +43,41 @@ BD.u = {
         return data.match(regex);
     },
 
-    savePdf: function(blob)
+    savePdf: function(blob, type)
     {
-        window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
+        var blob = new Blob([blob], { type: type });
+        if (typeof window.navigator.msSaveBlob !== 'undefined') {
+            // IE workaround for "HTML7007: One or more blob URLs were revoked by closing the blob for which they were created. These URLs will no longer resolve as the data backing the URL has been freed."
+            window.navigator.msSaveBlob(blob, filename);
+        } else {
+            var URL = window.URL || window.webkitURL;
+            var downloadUrl = URL.createObjectURL(blob);
 
-        window.requestFileSystem(TEMPORARY, 1024 * 1024, function(fs) {
-            fs.root.getFile('incident.pdf', {create: true}, function(fileEntry) {
-                fileEntry.createWriter(function(writer) {
+            /* if (filename) {
+             // use HTML5 a[download] attribute to specify filename
+             var a = document.createElement("a");
+             // safari doesn't support this yet
+             if (typeof a.download === 'undefined') {
+             window.location = downloadUrl;
+             } else {
+             a.href = downloadUrl;
+             a.download = filename;
+             document.body.appendChild(a);
+             a.click();
+             }
+             } else {
+             window.location = downloadUrl;
+             }*/
 
-                    writer.onwrite = function(e) { console.log("write"); };
-                    writer.onerror = function(e) {console.log("error"); };
+            return downloadUrl;
 
-                    var blob = new Blob([blob], {type: 'application/pdf'});
-
-                    writer.write(blob);
-
-                }, onError);
-            }, onError);
-        }, onError);
+            //setTimeout(function () { URL.revokeObjectURL(downloadUrl); }, 100); // cleanup
+        }
     },
 
     removeProtocol: function(url)
     {
-        return url.replace(/.*?:\/\//g, "");
+        url.replace(/.*?:\/\//g, "");
+        return url;
     }
 };

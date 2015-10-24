@@ -38,12 +38,13 @@
 
     Maps
 
-    <a id="signupButton" class="button" data-role="button" tabindex="2" onclick="BD.incident.getMap()">get map</a>
+    <a id="signupButton" class="button" data-role="button" tabindex="2" onclick="BD.incident.map.fetch()">get map</a>
+    <a id="signupButton" class="button" data-role="button" tabindex="2" onclick="BD.incident.map.list()">list maps</a>
 
-    <ol>
-        <li class="current"></li>
-        <li></li>
+    <ol id="files-list">
     </ol>
+
+    <div id="map-viewer"></div>
 
 </div>
 
