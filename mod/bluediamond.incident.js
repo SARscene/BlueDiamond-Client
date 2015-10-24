@@ -73,10 +73,12 @@ BD.incident = {
         addToList: function(url)
         {
             var list  = BD.incident.map.list() || [];
-            list.push({
-                url: url,
-                incident: BD.incident.get('incidentid')
-            });
+            list.push(
+                {
+                    incident: BD.incident.get('incidentid'),
+                    url: url,
+                    type: 'map'
+                });
             localStorage.setItem("maps",JSON.stringify(list));
         },
 
@@ -93,6 +95,7 @@ BD.incident = {
                 fragment.appendChild(li);
             });
 
+            document.querySelector('#files-list').innerHTML = "";
             document.querySelector('#files-list').appendChild(fragment);
 
             return list;

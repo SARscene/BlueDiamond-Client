@@ -49,9 +49,10 @@
 
         <div id="qrPage" class="page" data-role="page">
             <a class="button" data-role="button" tabindex="1" href="#qrPage">QR</a>
-            <a class="button" data-role="button" tabindex="1" href="#connectPage">Connexion</a>
+            <a class="button" data-role="button" tabindex="1" href="#connectPage">Connection</a>
             <a class="button" data-role="button" tabindex="1" href="#trackingPage">Tracking</a>
             <a class="button" data-role="button" tabindex="1" href="#settingsPage">Settings</a>
+            <a class="button" data-role="button" tabindex="1" href="#mapsPage">Maps</a>
 
             <div id="qrContent" class="content" data-role="content">
                 <a id="qrToWelcomeButton" class="button" data-role="button" tabindex="1" onclick="navToWelcomePage()">Back</a>
@@ -80,7 +81,7 @@
         <div id="settingsPage" class="page" data-role="page">
             <div>
                 <h3>Add to known servers list</h3>
-                <label for="server">Server url</label>
+                <label for="in-storage">Server url</label>
                 <input name="server" type="url" id="in-storage" placeholder="http://999.999.999"/>
                 <button id="btn-storage" onclick="BD.u.validate($('#in-storage'), BD.connection.add)">Add</button>
             </div>
@@ -90,10 +91,13 @@
 
             Maps
 
-            <ol>
-                <li class="current"></li>
-                <li></li>
+            <a id="signupButton" class="button" data-role="button" tabindex="2" onclick="BD.incident.map.fetch()">Fetch from server</a>
+            <a id="signupButton" class="button" data-role="button" tabindex="2" onclick="BD.incident.map.list()">List local maps</a>
+
+            <ol id="files-list">
             </ol>
+
+            <div id="map-viewer"></div>
 
         </div>
 
