@@ -26,11 +26,21 @@
         <script type="text/javascript" src="mod/qrscanner/qrscanner.js"></script>
         <script type="text/javascript" src="mod/control/control.js"></script>
         <script type="text/javascript" src="mod/connections/connections.js"></script>
+
+        <script type="text/javascript" src="mod/bluediamond.utilities.js"></script>
+        <script type="text/javascript" src="mod/bluediamond.connection.js"></script>
+
+
         
     </head>
     <body>
 
         <div id="qrPage" class="page" data-role="page">
+            <a class="button" data-role="button" tabindex="1" href="#qrPage">QR</a>
+            <a class="button" data-role="button" tabindex="1" href="#connectPage">Connexion</a>
+            <a class="button" data-role="button" tabindex="1" href="#trackingPage">Tracking</a>
+            <a class="button" data-role="button" tabindex="1" href="#settingsPage">Settings</a>
+
             <div id="qrContent" class="content" data-role="content">
                 <div id="reader" style="width:300px;height:250px"></div>
                 <span id="read"></span>
@@ -44,6 +54,22 @@
                 <a id="trackButton" class="button" data-role="button" tabindex="1" onclick="navToQrPage()">Back</a>
                 <a id="trackButton" class="button" data-role="button" tabindex="2" onclick="trackButtonClick()">Toggle Tracking</a>
                 <a id="trackButton" class="button" data-role="button" tabindex="3" onclick="submitTracks()">Submit Tracks</a>
+            </div>
+        </div>
+
+        <div id="connectPage" class="page" data-role="page">
+            <div>
+                <h3>Automatic Lookup</h3>
+                <button id="btn-automate" onclick="BD.connection.lookup()">Try known servers</button>
+            </div>
+        </div>
+
+        <div id="settingsPage" class="page" data-role="page">
+            <div>
+                <h3>Add to known servers list</h3>
+                <label for="server">Server url</label>
+                <input name="server" type="url" id="in-storage" placeholder="http://999.999.999"/>
+                <button id="btn-storage" onclick="BD.u.validate($('#in-storage'), BD.connection.add)">Add</button>
             </div>
         </div>
 
