@@ -1,0 +1,34 @@
+#myPopup-popup{
+	min-width: 85%;
+}
+
+#myPopup{
+	text-align: center;
+	padding: 10px;
+}
+
+#myPopupHeader{
+	font-size: 22pt;
+}
+#myPopupPositiveButton{
+	/*
+	background-color: #3da3d8;
+	color: white;
+	text-shadow: none !important;
+	*/
+}
+#myPopupNegativeButton{
+	/*background-color: white;*/
+}
+
+#myPopupComment{
+	display: none;
+	width: 100%;
+	margin-top: 20px;
+	border: 1px solid #ccc;
+	border-radius: .15em;
+	font-family: "Montserrat";
+	font-size: 14pt;
+	height: 100px !important;
+	overflow-y: scroll;
+}
