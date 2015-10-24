@@ -43,7 +43,7 @@ BD.connection = {
     handShake: function(serverUrl)
     {
         var entrypoint = "/api/mobile/handshake";
-        var url = BD.u.removeProtocol(serverUrl) + "//" + url + entrypoint;
+        var url = "http://" +  BD.u.removeProtocol(serverUrl) + "/" + url + entrypoint;
 
         $.get(url, function(e){
             //Not doing anything, handled through "done" action.
