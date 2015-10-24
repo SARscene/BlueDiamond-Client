@@ -1,0 +1,11 @@
+
+/* Remove padding from content view. */
+.ui-content{
+	padding:0;
+}
+
+/* Size content view to screen dimansions. */
+.content{
+	width:100%;
+	height:100%;
+}

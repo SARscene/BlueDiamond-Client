@@ -1,76 +1,61 @@
 var trackingEngine;					//Timer obj running tracking.
-var monitoringEngine;				//Timer obj running monitoring.
 
-function trackButtonClick(){
-	trackStart();
-}
-
-/* Recursively monitors the Memeber's emergnecy status every 30 seconds and tracks the user if status = 1 */
-function monitorEmergencyStatus(){
-	//if not currently tracking, track
-	if(!sessionStorage.getItem("tracking")){
-		trackStart();
-	}
-	//Display existing tracked points
-	/*
-	if(page == "editPage" && sessionStorage.getItem("editPID") != 0 && sessionStorage.getItem("editPID") != null){
-		getTracking(sessionStorage.getItem("editPID"), function(trackingData){
-			trackEmergencyDisplay(trackingData, map);
-		});
-	}
-	*/
-
-	clearTimeout(monitoringEngine);
-	if(sessionStorage.getItem("tracking")){
-		monitoringEngine = setTimeout(function(){
-			monitorEmergencyStatus();
-		}, 30000);
-	}
-}
-
-/* Reports the User's location to Server. 
- * @param location Location object returned by navigator.geolocation.getCurrentPosition
- */
+/* Begins tracking the User's location at a set interval. */
 function trackStart(){
 	
+	//Record tracking in session
 	sessionStorage.setItem("tracking", 1);
+	//Set App to run in background on phone.
 	try{
 		window.plugin.backgroundMode.enable();
 	}
 	catch(err){}
 
 	//PING variables
-	var mPingInterval = 30000;			//Number of milliseconds to wait between ping calls.
+	var mPingInterval = 10000;			//Number of milliseconds to wait between ping calls.
 	var mPingTimeout = 20000;			//Number of milliseconds before registering a ping timeout.
-	var mPingDistance = 10;				//Number of meters necessary to register arrival.
-											//suggestedMin: 10-20
 
-	ping(mPingInterval, mPingTimeout, mPingDistance);
+	//Perform ping to get location.
+	ping(mPingInterval, mPingTimeout);
 
-	function ping(pingInterval, pingTimeout, pingDistance){
+	/* Performs a location lookup on the User's device at a set interval. */
+	function ping(pingInterval, pingTimeout){
+		//Get location
 		navigator.geolocation.getCurrentPosition(function(location){
 			//save tracking
 			var savedTracks = [];
 			if(sessionStorage.getItem("savedTracks")){
 				savedTracks = JSON.parse(sessionStorage.getItem("savedTracks"));
 			}
-			console.log(savedTracks);
-			savedTracks.push(location);
+			//Build point object
+			var tpid = "00000000-0000-0000-0000-000000000000";
+			var lat = location.coords.latitude;
+			var lng = location.coords.longitude;
+			var alt = location.coords.altitude;
+			var acc = location.coords.accuracy;
+			var timestamp = location.timestamp;
+			var newTrack = {"TrackPointID":tpid, "Latitide":lat, "Longitude":lng, "Altitude":alt, "Accuracy":acc, "TimeStamp":timestamp};
+			//Push newTrack onto track-array and save to session
+			savedTracks.push(newTrack);
 			sessionStorage.setItem("savedTracks", JSON.stringify(savedTracks));
+
+			//console.log(savedTracks);
+
 			//ping again at interval
 			clearTimeout(trackingEngine);
 			trackingEngine = setTimeout(function() {
-				ping(pingInterval, pingTimeout, pingDistance);
+				ping(pingInterval, pingTimeout);
 			}, pingInterval);
 		}, function(e){
 			console.log(e);
-			//recursive call
-			ping(pingInterval, pingTimeout, pingDistance);
+			//recursive call if error on location lookup
+			ping(pingInterval, pingTimeout);
 		}, {timeout:pingTimeout, enableHighAccuracy: true, maximumAge:10000});
 	}
 }
 
-function trackEmergencyStop(){
+/* Stops tracking the User's location. */
+function trackStop(){
 	sessionStorage.removeItem("tracking");
 	clearTimeout(trackingEngine);
 	try{
@@ -130,23 +115,4 @@ function trackDisplay(trackingData, map){
 			console.log("no tracks");
 		}
 	});
-}
-
-
-function getTracking(pid, callback){
-	$.ajax({
-		type: "post", 
-		url: getTrackingConnect,
-		timeout: 10000,
-		data: {"pid":pid},
-		dataType: "json",
-		success: function(response) {
-			callback(response);
-		},
-		error: function(xhr, status, error) {
-			console.log("getTracking() Failed: " + error);
-			console.log(xhr);
-			return false;
-		}
-	}); 
 }

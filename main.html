@@ -12,42 +12,38 @@
         <link rel="stylesheet" href="lib/jqm/jquery.mobile-1.4.2.min.css" />
         <script type="text/javascript" src="lib/jqm/jquery.mobile-1.4.2.min.js"></script>
 
-        <!-- ESRI -->
-        <script type="text/javascript" src="lib/arcgis/arcgis.js"></script>
-        <link rel="stylesheet" href="https://js.arcgis.com/3.8/js/esri/css/esri.css" />
-
         <!-- PHONEGAP -->
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="mod/phonegap/phonegap_init.js"></script>
 
         <!-- QR CODE -->
-        <script type="text/javascript" src="lib/jsqrcode/src/grid.js"></script>
-        <script type="text/javascript" src="lib/jsqrcode/src/version.js"></script>
-        <script type="text/javascript" src="lib/jsqrcode/src/detector.js"></script>
-        <script type="text/javascript" src="lib/jsqrcode/src/formatinf.js"></script>
-        <script type="text/javascript" src="lib/jsqrcode/src/errorlevel.js"></script>
-        <script type="text/javascript" src="lib/jsqrcode/src/bitmat.js"></script>
-        <script type="text/javascript" src="lib/jsqrcode/src/datablock.js"></script>
-        <script type="text/javascript" src="lib/jsqrcode/src/bmparser.js"></script>
-        <script type="text/javascript" src="lib/jsqrcode/src/datamask.js"></script>
-        <script type="text/javascript" src="lib/jsqrcode/src/rsdecoder.js"></script>
-        <script type="text/javascript" src="lib/jsqrcode/src/gf256poly.js"></script>
-        <script type="text/javascript" src="lib/jsqrcode/src/gf256.js"></script>
-        <script type="text/javascript" src="lib/jsqrcode/src/decoder.js"></script>
-        <script type="text/javascript" src="lib/jsqrcode/src/qrcode.js"></script>
-        <script type="text/javascript" src="lib/jsqrcode/src/findpat.js"></script>
-        <script type="text/javascript" src="lib/jsqrcode/src/alignpat.js"></script>
-        <script type="text/javascript" src="lib/jsqrcode/src/databr.js"></script>
+        <script type="text/javascript" src="lib/jsqrcode/lib/html5-qrcode.min.js"></script>
+        <script type="text/javascript" src="lib/jsqrcode/lib/jsqrcode-combined.min.js"></script>
 
         <!-- MODS -->
+        <link rel="stylesheet" href="css/style.css" />
         <script type="text/javascript" src="mod/track/track.js"></script>
+        <script type="text/javascript" src="mod/qrscanner/qrscanner.js"></script>
+        <script type="text/javascript" src="mod/control/control.js"></script>
+        <script type="text/javascript" src="mod/connections/connections.js"></script>
         
     </head>
     <body>
 
+        <div id="qrPage" class="page" data-role="page">
+            <div id="qrContent" class="content" data-role="content">
+                <div id="reader" style="width:300px;height:250px"></div>
+                <span id="read"></span>
+                <span id="read_error"></span>
+                <span id="vid_error"></span>
+            </div>
+        </div>
+
         <div id="trackingPage" class="page" data-role="page">
             <div id="trackingContent" class="content" data-role="content">
-                <a id="trackButton" class="button" data-role="button" tabindex="1" onclick="trackButtonClick()">Track</a>
+                <a id="trackButton" class="button" data-role="button" tabindex="1" onclick="navToQrPage()">Back</a>
+                <a id="trackButton" class="button" data-role="button" tabindex="2" onclick="trackButtonClick()">Toggle Tracking</a>
+                <a id="trackButton" class="button" data-role="button" tabindex="3" onclick="submitTracks()">Submit Tracks</a>
             </div>
         </div>
 
