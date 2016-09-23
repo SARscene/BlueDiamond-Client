@@ -5,10 +5,10 @@
         versionCode = "0010" 
         version     = "0.0.1" >
 
-    <name>Antris</name>
+    <name>BlueDiamond</name>
 
     <description>
-        Hackathon
+        BlueDiamond mobile app
     </description>
 
     <author href="https://www.antris.com" email="cdykeman@antris.com">
